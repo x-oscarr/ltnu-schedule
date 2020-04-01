@@ -1,0 +1,31 @@
+{% for element in item %}
+    <li class = {{ element.uri in app.request.requestUri ? "active" }}
+        {% if element.children %}
+            {% for child in element.children %}
+                {% if child.uri in app.request.requestUri %}
+                    "active"
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    >
+        <a href="{{ element.uri }}">
+            <i class="fa {{ element.extras.icon }}"></i>
+            <span class="nav-label">{{ element.label | raw}}</span>
+            {% if element.children %}
+                <span class="fa arrow"></span>
+            {% endif %}
+            {% if element.extras.count is defined and element.extras.count > 0 %}
+                <span class="label label-warning float-right">{{ element.extras.count }}</span>
+            {% endif %}
+        </a>
+        {% if element.children %}
+            <ul class="nav nav-second-level collapse" aria-expanded="false">
+                {% for child in element.children %}
+                    <li class="{{ child.uri in app.request.requestUri ? "active" }}">
+                        <a href="{{ child.uri }}">{{ child.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}

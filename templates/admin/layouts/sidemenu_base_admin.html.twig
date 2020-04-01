@@ -1,0 +1,21 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+{#                                <strong class="font-bold">{{ app.user.name }}</strong>#}
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    A
+                </div>
+            </li>
+            {{ knp_menu_render('root', {'template':'admin/menu/admin_menu.html.twig'}) }}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}LNTU{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="/assets/admin/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/assets/admin/css/animate.css" rel="stylesheet">
+        <link href="/assets/admin/css/style.css" rel="stylesheet">
+
+        {#footable#}
+        <link href="/assets/admin/css/plugins/footable/footable.core.bootstrap.css" rel="stylesheet">
+        <link href="/assets/admin/css/plugins/footable/footable.sorting.min.css" rel="stylesheet">
+        <link href="/assets/admin/css/plugins/footable/footable.filtering.min.css" rel="stylesheet">
+
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda-themeless.min.css" rel="stylesheet">
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    {#sidemenu#}
+    {{ include('admin/layouts/sidemenu_base_admin.html.twig') }}
+
+    <div id="page-wrapper" class="gray-bg">
+        {{ include('admin/layouts/header_base_menu.html.twig') }}
+        {% block body %}{% endblock %}
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> LNTU-Schedule &copy; 2020
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% block modals %}{% endblock %}
+
+{% block javascripts %}
+    <!-- Mainly scripts -->
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="/assets/admin/js/bootstrap.min.js"></script>
+    <script src="/assets/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/assets/admin/js/inspinia.js"></script>
+{#    <script src="/assets/admin/js/app.js"></script>#}
+    <script src="/assets/admin/js/plugins/pace/pace.min.js"></script>
+    {#footable#}
+    <script src="/assets/admin/js/plugins/footable/footable.core.min.js"></script>
+    <script src="/assets/admin/js/plugins/footable/footable.sorting.min.js"></script>
+    <script src="/assets/admin/js/plugins/footable/footable.filtering.min.js"></script>
+    <script src="/assets/admin/js/plugins/footable/footable.paging.min.js"></script>
+    <script src="/assets/admin/js/plugins/footable/footable.state.min.js"></script>
+    <script src="/assets/admin/js/tinymce/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/admin/js/plugins/bootstrap-datepicker/datepicker-locale.js"></script>
+    <script>
+        tinymce.init({
+            selector: '.tiny-mce',
+            language: 'uk',
+            plugins: 'code image fullscreen link',
+            toolbar: 'code | image | fullscreen',
+            automatic_uploads: true,
+            images_upload_url: /attachment/,
+            content_css: '/build/css/app.css',
+            file_picker_types: 'image',
+            non_empty_elements: "td,th,iframe,video,audio,object,script,pre,code,area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed,source,wbr,track,svg,use",
+            extended_valid_elements : "svg[*],use[*]",
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function () {
+                    var file = this.files[0];
+
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        var id = 'blobid' + (new Date()).getTime();
+                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                        var base64 = reader.result.split(',')[1];
+                        var blobInfo = blobCache.create(id, file, base64);
+                        blobCache.add(blobInfo);
+
+                        cb(blobInfo.blobUri(), { title: file.name });
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                input.click();
+            },
+            setup : function(ed) {
+                ed.on('init',function(){
+                    $(this.getContainer()).css('width', '100%');
+                });
+            }
+        });
+        $(document).on('focusin', function(e) {
+            $('.tox.tox-silver-sink.tox-tinymce-aux').css('z-index', '2002');
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/spin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda.jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda.min.js"></script>
+{% endblock %}
+
+
+</body>
+
+</html>

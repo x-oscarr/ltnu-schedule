@@ -37,7 +37,7 @@ class Lesson
     private $auditory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="lessons")
+     * @ORM\ManyToOne(targetEntity="App\Entity\StudentsGroup", inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $studentGroup;

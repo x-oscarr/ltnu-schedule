@@ -1,0 +1,86 @@
+{% extends 'admin/layouts/base_admin.html.twig' %}
+
+{% block title %}Group{% endblock %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Список груп</h2>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="{{ path('admin_group_new') }}">Створити нову</a>
+
+                        <table class="footable table table-stripped toggle-arrow-tiny default breakpoint footable-loaded">
+                            <thead>
+                            <tr>
+                                <th data-toggle="true" class="footable-visible footable-first-column footable-sortable">Назва групи<span class="footable-sort-indicator"></span></th>
+                                <th data-hide="phone" class="footable-visible footable-sortable">Курс<span class="footable-sort-indicator"></span></th>
+                                <th class="text-right footable-visible footable-last-column" data-sort-ignore="true" data-filterable="false" data-sortable="false">Дії</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for group in groups %}
+
+                                <tr class="footable-even" style="">
+                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>
+                                        {{ group.name }}
+                                    </td>
+                                    <td class="footable-visible">
+                                        {{ group.course }}
+                                    </td>
+{#                                    <td class="footable-visible">#}
+{#                                        {{ brand.onHomepage ? '<span class="label label-primary">yes</span>' : '<span class="label label-danger">no</span>'  }}#}
+{#                                    </td>#}
+                                    <td class="text-right footable-visible footable-last-column">
+                                        <div class="btn-group">
+{#                                            <a class="btn-white btn btn-xs" href="{{ path('admin_brand_show', {'id': brand.id} ) }}">View</a>#}
+                                            <a class="btn-white btn btn-xs" href="{{ path('admin_group_edit', {'id': group.id}) }}"><i class="fa fa-edit"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="11">записів не знайдено</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.footable').footable({
+                "sorting": {
+                    "enabled": true
+                },
+                'filtering': {
+                    'enabled': true
+                },
+                "paging": {
+                    "enabled": true,
+                    "limit": 2,
+                    "size": 25,
+                    "countFormat": "{CP} of {TP}"
+                },
+            });
+        });
+
+    </script>
+{% endblock %}

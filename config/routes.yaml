@@ -1,3 +1,55 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+admin_dashboard:
+  path: /admin/
+  controller: App\Admin\Controller\IndexController::index
+
+admin_lesson_index:
+  path: /admin/lesson/
+  controller: App\Admin\Controller\LessonController::index
+
+admin_lesson_edit:
+  path: /admin/lesson/{id}/edit/
+  controller: App\Admin\Controller\LessonController::edit
+
+admin_lesson_new:
+  path: /admin/lesson/new/
+  controller: App\Admin\Controller\LessonController::new
+
+admin_lesson_delete:
+  path: /admin/lesson/{id}/delete/
+  controller: App\Admin\Controller\LessonController::delete
+
+admin_group_index:
+  path: /admin/group/
+  controller: App\Admin\Controller\StudentsGroupController::index
+
+admin_group_edit:
+  path: /admin/group/{id}/edit/
+  controller: App\Admin\Controller\StudentsGroupController::edit
+
+admin_group_new:
+  path: /admin/group/new/
+  controller: App\Admin\Controller\StudentsGroupController::new
+
+admin_group_delete:
+  path: /admin/group/{id}/delete/
+  controller: App\Admin\Controller\StudentsGroupController::delete
+
+admin_week_index:
+  path: /admin/week/
+  controller: App\Admin\Controller\WeekController::index
+
+admin_week_edit:
+  path: /admin/week/{id}/edit/
+  controller: App\Admin\Controller\WeekController::edit
+
+admin_week_new:
+  path: /admin/week/new/
+  controller: App\Admin\Controller\WeekController::new
+
+admin_week_delete:
+  path: /admin/week/{id}/delete/
+  controller: App\Admin\Controller\WeekController::delete
