@@ -44,9 +44,9 @@ class Builder
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('group', ['route' => 'admin_group_index', 'label' => 'Група', 'extras' => ['icon' => 'fa-tags fa-fw']]);
-        $menu->addChild('lesson', ['label' => 'Предмет', 'extras' => ['icon' => 'fa-tags fa-fw']]);
-        $menu->addChild('week', ['label' => 'Тиждень', 'extras' => ['icon' => 'fa-tags fa-fw']]);
-        $menu->addChild('user', ['label' => 'Користувач', 'extras' => ['icon' => 'fa-tags fa-fw']]);
+        $menu->addChild('lesson', ['route' => 'admin_lesson_index', 'label' => 'Предмет', 'extras' => ['icon' => 'fa-tags fa-fw']]);
+        $menu->addChild('week', ['route' => 'admin_week_index', 'label' => 'Тиждень', 'extras' => ['icon' => 'fa-tags fa-fw']]);
+        $menu->addChild('user', ['route' => 'admin_user_index', 'label' => 'Користувач', 'extras' => ['icon' => 'fa-tags fa-fw']]);
 
         // ... add more children
 

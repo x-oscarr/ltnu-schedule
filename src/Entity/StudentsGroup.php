@@ -33,6 +33,17 @@ class StudentsGroup
      */
     private $lessons;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Faculty", inversedBy="studentGroups")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $faculty;
+
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
@@ -94,6 +105,30 @@ class StudentsGroup
                 $lesson->setStudentGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function getFaculty(): ?Faculty
+    {
+        return $this->faculty;
+    }
+
+    public function setFaculty(?Faculty $faculty): self
+    {
+        $this->faculty = $faculty;
 
         return $this;
     }

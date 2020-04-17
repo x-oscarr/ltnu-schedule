@@ -13,7 +13,6 @@ class Lesson
     const WEEK_DENOMINATOR = Week::WEEK_TYPE_DENOMINATOR;
     const WEEK_BOTH = 3;
 
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -50,22 +49,19 @@ class Lesson
     /**
      * @ORM\Column(type="integer")
      */
+    private $typeOfWeek;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Semester", inversedBy="lessons")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $semester;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $year;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Day", inversedBy="lessons")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $dayOfWeek;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $typeOfWeek;
 
     public function getId(): ?int
     {
@@ -108,12 +104,12 @@ class Lesson
         return $this;
     }
 
-    public function getStudentGroup(): ?Group
+    public function getStudentGroup(): ?StudentsGroup
     {
         return $this->studentGroup;
     }
 
-    public function setStudentGroup(?Group $studentGroup): self
+    public function setStudentGroup(?StudentsGroup $studentGroup): self
     {
         $this->studentGroup = $studentGroup;
 
@@ -132,42 +128,6 @@ class Lesson
         return $this;
     }
 
-    public function getSemester(): ?int
-    {
-        return $this->semester;
-    }
-
-    public function setSemester(int $semester): self
-    {
-        $this->semester = $semester;
-
-        return $this;
-    }
-
-    public function getYear(): ?int
-    {
-        return $this->year;
-    }
-
-    public function setYear(int $year): self
-    {
-        $this->year = $year;
-
-        return $this;
-    }
-
-    public function getDayOfWeek(): ?int
-    {
-        return $this->dayOfWeek;
-    }
-
-    public function setDayOfWeek(int $dayOfWeek): self
-    {
-        $this->dayOfWeek = $dayOfWeek;
-
-        return $this;
-    }
-
     public function getTypeOfWeek(): ?int
     {
         return $this->typeOfWeek;
@@ -176,6 +136,30 @@ class Lesson
     public function setTypeOfWeek(int $typeOfWeek): self
     {
         $this->typeOfWeek = $typeOfWeek;
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?Semester $semester): self
+    {
+        $this->semester = $semester;
+
+        return $this;
+    }
+
+    public function getDayOfWeek(): ?Day
+    {
+        return $this->dayOfWeek;
+    }
+
+    public function setDayOfWeek(?Day $dayOfWeek): self
+    {
+        $this->dayOfWeek = $dayOfWeek;
 
         return $this;
     }
