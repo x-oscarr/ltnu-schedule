@@ -33,6 +33,11 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StudentsGroup", inversedBy="users")
+     */
+    private $studentsGroup;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,5 +109,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getStudentsGroup(): ?StudentsGroup
+    {
+        return $this->studentsGroup;
+    }
+
+    public function setStudentsGroup(?StudentsGroup $studentsGroup): self
+    {
+        $this->studentsGroup = $studentsGroup;
+
+        return $this;
     }
 }

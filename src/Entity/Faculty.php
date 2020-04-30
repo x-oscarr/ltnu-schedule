@@ -28,6 +28,11 @@ class Faculty
      */
     private $studentGroups;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $abbreviation;
+
     public function __construct()
     {
         $this->studentGroups = new ArrayCollection();
@@ -77,6 +82,18 @@ class Faculty
                 $studentGroup->setFaculty(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAbbreviation(): ?string
+    {
+        return $this->abbreviation;
+    }
+
+    public function setAbbreviation(string $abbreviation): self
+    {
+        $this->abbreviation = $abbreviation;
 
         return $this;
     }

@@ -10,21 +10,23 @@ use Doctrine\Common\Persistence\ObjectManager;
 class FacultyFixtures extends Fixture implements OrderedFixtureInterface
 {
     private const FACULTIES = [
-        'Машинобудівний',
-        'КНІТ',
-        'Факультет бізнесу',
+        ['name' => 'Машинобудівний факультет', 'abbreviation' => 'МБФ'],
+        ['name' => 'Технологічний факультет', 'abbreviation' => 'ТЕФ'],
+        ['name' => 'Факультет бізнесу', 'abbreviation' => 'ФБ'],
+        ['name' => 'Факультет архітектури, будівництва та дизайну', 'abbreviation' => 'ФАБД'],
+        ['name' => 'Факультет екології, туризму та електроінженерії', 'abbreviation' => 'ФЕТЕ'],
+        ['name' => 'Факультет комп’ютерних наук та інформаційних технологій', 'abbreviation' => 'ФКНІТ'],
+        ['name' => 'Факультет фінансів, обліку, лінгвістики та права', 'abbreviation' => 'ФФОЛП'],
     ];
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        foreach (self::FACULTIES as $facultyName) {
+        foreach (self::FACULTIES as $oneFaculty) {
             $faculty = new Faculty();
-            $faculty->setName($facultyName);
+            $faculty->setName($oneFaculty['name']);
+            $faculty->setAbbreviation($oneFaculty['abbreviation']);
             $manager->persist($faculty);
         }
-
         $manager->flush();
     }
 
