@@ -29,14 +29,25 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $password;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\StudentsGroup", inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $studentsGroup;
+
+    /**
+     * @ORM\Column(type="string", length=4)
+     */
+    private $locale = 'uk';
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
 
     public function getId(): ?int
     {
@@ -119,6 +130,30 @@ class User implements UserInterface
     public function setStudentsGroup(?StudentsGroup $studentsGroup): self
     {
         $this->studentsGroup = $studentsGroup;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
