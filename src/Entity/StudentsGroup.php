@@ -44,9 +44,15 @@ class StudentsGroup
      */
     private $faculty;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="studentsGroup")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +135,37 @@ class StudentsGroup
     public function setFaculty(?Faculty $faculty): self
     {
         $this->faculty = $faculty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setStudentsGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getStudentsGroup() === $this) {
+                $user->setStudentsGroup(null);
+            }
+        }
 
         return $this;
     }
