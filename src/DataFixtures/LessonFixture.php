@@ -37,6 +37,7 @@ class LessonFixture extends Fixture implements OrderedFixtureInterface
             $lesson->setSemester($semester);
             $studentGroup = $manager->getRepository(StudentsGroup::class)->findOneBy([]);
             $lesson->setStudentGroup($studentGroup);
+            $lesson->setNumber($LESSON['number']);
             $manager->persist($lesson);
         }
         $manager->flush();
