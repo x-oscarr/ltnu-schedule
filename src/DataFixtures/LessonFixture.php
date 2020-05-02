@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Day;
 use App\Entity\Lesson;
 use App\Entity\Semester;
 use App\Entity\StudentsGroup;
@@ -20,7 +19,8 @@ class LessonFixture extends Fixture implements OrderedFixtureInterface
             'type' => '1',
             'dayOfWeek' => 1,
             'typeOfWeek' => '1',
-            'semester' => 1
+            'semester' => 1,
+            'number' => 1
         ]
     ];
     public function load(ObjectManager $manager)
@@ -32,8 +32,7 @@ class LessonFixture extends Fixture implements OrderedFixtureInterface
             $lesson->setAuditory($LESSON['auditory']);
             $lesson->setTypeOfWeek($LESSON['typeOfWeek']);
             $lesson->setType($LESSON['type']);
-            $dayOfWeek = $manager->getRepository(Day::class)->findOneBy([]);
-            $lesson->setDayOfWeek($dayOfWeek);
+            $lesson->setDayOfWeek($LESSON['dayOfWeek']);
             $semester = $manager->getRepository(Semester::class)->findOneBy([]);
             $lesson->setSemester($semester);
             $studentGroup = $manager->getRepository(StudentsGroup::class)->findOneBy([]);
