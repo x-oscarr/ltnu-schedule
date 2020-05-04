@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Faculty;
 use App\Entity\StudentsGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -22,19 +23,37 @@ class StudentsGroupRepository extends ServiceEntityRepository
     // /**
     //  * @return Group[] Returns an array of Group objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllStudentsGroupsAsArray()
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('sg')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getArrayResult()
+            ;
     }
-    */
+
+    public function getStudentsGroupsByFacultyAsArray(Faculty $faculty)
+    {
+        return $this->createQueryBuilder('sg')
+            ->andWhere('sg.faculty = :faculty')
+            ->setParameter('faculty', $faculty)
+            ->getQuery()
+            ->getArrayResult()
+            ;
+    }
+
+    public function getStudentGroupsByFacultyAndText(Faculty $faculty, string $text=null)
+    {
+        return $this->createQueryBuilder('sg')
+            ->select('sg.id')
+            ->addSelect('sg.name as name')
+            ->andWhere('sg.faculty = :faculty')
+            ->andWhere('sg.name LIKE :text')
+            ->setParameter('text', '%' . trim($text) . '%')
+            ->setParameter('faculty', $faculty)
+            ->getQuery()
+            ->getArrayResult()
+            ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Group

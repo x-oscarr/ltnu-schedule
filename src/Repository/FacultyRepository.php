@@ -26,8 +26,10 @@ class FacultyRepository extends ServiceEntityRepository
     public function getAllFacultiesAsArray()
     {
         return $this->createQueryBuilder('f')
+            ->select('f.id as value')
+            ->addSelect('f.name as label')
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
         ;
     }
 

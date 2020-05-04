@@ -15,9 +15,16 @@ class FacultyController extends AbstractController
         $this->facultyDataProvider = $facultyDataProvider;
     }
 
-    public function faculties(Request $request)
+    public function faculties()
     {
         $faculties = $this->facultyDataProvider->getAllFacultiesAsArray();
+        if(empty($groups)) {
+            $response = [
+                'success' => false,
+                'message' => 'Дані відсутні'
+            ];
+            return new JsonResponse($response);
+        }
         return new JsonResponse($faculties);
     }
 }
