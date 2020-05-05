@@ -3,7 +3,9 @@ namespace App\Controller\Api;
 
 use App\DataProvider\FacultyDataProviderInterface;
 use App\DataProvider\LessonDataProviderInterface;
+use App\DataProvider\SemesterDataProviderInterface;
 use App\DataProvider\StudentGroupDataProviderInterface;
+use App\Helper\ScheduleHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,31 +18,35 @@ class ScheduleController extends AbstractController
 
     private $lessonDataProvider;
 
+    private $semesterDataProvider;
+
     public function __construct(
         FacultyDataProviderInterface $facultyDataProvider,
         StudentGroupDataProviderInterface $studentGroupDataProvider,
-        LessonDataProviderInterface $lessonDataProvider
+        LessonDataProviderInterface $lessonDataProvider,
+        SemesterDataProviderInterface $semesterDataProvider
     )
     {
         $this->facultyDataProvider = $facultyDataProvider;
         $this->studentGroupDataProvider = $studentGroupDataProvider;
         $this->lessonDataProvider = $lessonDataProvider;
+        $this->semesterDataProvider = $semesterDataProvider;
     }
 
-    public function schedule(Request $request)
+    public function schedule(Request $request, ScheduleHelper $scheduleHelper)
     {
         $groupId = $request->get('groupId');
         $group = $this->studentGroupDataProvider->getStudentGroupById($groupId);
-        $lessons = $this->lessonDataProvider->getAllLessons();
-        dd($lessons);
-//        $schedule = $this->studentGroupDataProvider->getStudentGroupsByFacultyAndText($faculty, $text);
-        if(empty($groups)) {
+        $semester = $this->semesterDataProvider->getCurrentSemester();
+        $lessons = $this->lessonDataProvider->getLessonsByGroupAndCurrentSemester($group, $semester);
+        $schedule = $scheduleHelper->generateScheduleArray($lessons);
+        if(empty($schedule)) {
             $response = [
                 'success' => false,
-                'message' => 'За заданими параметрами не знайдено груп'
+                'message' => 'Розклад відсутній'
             ];
             return new JsonResponse($response);
         }
-        return new JsonResponse($groups);
+        return new JsonResponse($schedule);
     }
 }

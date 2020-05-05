@@ -58,10 +58,14 @@ class Lesson
     private $semester;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Day", inversedBy="lessons")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $dayOfWeek;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number;
 
     public function getId(): ?int
     {
@@ -152,14 +156,26 @@ class Lesson
         return $this;
     }
 
-    public function getDayOfWeek(): ?Day
+    public function getDayOfWeek(): ?int
     {
         return $this->dayOfWeek;
     }
 
-    public function setDayOfWeek(?Day $dayOfWeek): self
+    public function setDayOfWeek(int $dayOfWeek): self
     {
         $this->dayOfWeek = $dayOfWeek;
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

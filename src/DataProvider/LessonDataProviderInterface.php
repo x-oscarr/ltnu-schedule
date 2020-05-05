@@ -2,6 +2,8 @@
 namespace App\DataProvider;
 
 use App\Entity\Lesson;
+use App\Entity\Semester;
+use App\Entity\StudentsGroup;
 
 interface LessonDataProviderInterface
 {
@@ -29,4 +31,6 @@ interface LessonDataProviderInterface
     public function getLessonsBy(array $criterias): array;
 
     public function getAllLessonsAsArray(): array;
+
+    public function getLessonsByGroupAndCurrentSemester(StudentsGroup $group, Semester $semester);
 }

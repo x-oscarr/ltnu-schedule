@@ -3,6 +3,8 @@ namespace App\DataProvider;
 
 use App\Entity\Faculty;
 use App\Entity\Lesson;
+use App\Entity\Semester;
+use App\Entity\StudentsGroup;
 use App\Repository\FacultyRepository;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\ORMException;
@@ -76,6 +78,16 @@ class LessonDataProvider implements LessonDataProviderInterface
     {
         try {
             return $this->lessonRepository->getAllLessonsAsArray();
+        } catch (ORMException | ORMInvalidArgumentException $e) {
+            $this->logger->error($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getLessonsByGroupAndCurrentSemester(StudentsGroup $group, Semester $semester)
+    {
+        try {
+            return $this->lessonRepository->getLessonsByGroupAndCurrentSemester($group, $semester);
         } catch (ORMException | ORMInvalidArgumentException $e) {
             $this->logger->error($e->getMessage());
             return [];

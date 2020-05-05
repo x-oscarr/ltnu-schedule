@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Lesson;
+use App\Entity\Semester;
+use App\Entity\StudentsGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -22,19 +24,36 @@ class LessonRepository extends ServiceEntityRepository
     // /**
     //  * @return Lesson[] Returns an array of Lesson objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function getLessonsByGroupAndCurrentSemester(StudentsGroup $group, Semester $semester)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('l.studentGroup = :group')
+            ->andWhere('l.semester = :semester')
+            ->setParameter('group', $group)
+            ->setParameter('semester', $semester)
+            ->orderBy('l.number', 'ASC')
+            ->orderBy('l.dayOfWeek', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function getLessonsByGroupByCurrentSemesterByDayOfWeek(StudentsGroup $group, Semester $semester, int $dayOfWeek)
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.studentGroup = :group')
+            ->andWhere('l.semester = :semester')
+            ->andWhere('l.dayOfWeek = :day')
+            ->setParameter('group', $group)
+            ->setParameter('semester', $semester)
+            ->setParameter('day', $dayOfWeek)
+            ->orderBy('l.number', 'ASC')
+            ->orderBy('l.dayOfWeek', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Lesson
