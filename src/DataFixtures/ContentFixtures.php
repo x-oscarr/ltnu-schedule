@@ -127,6 +127,7 @@ class ContentFixtures extends Fixture
     {
         foreach (self::CONTENT as $contentData) {
             $content = new Content();
+            $content->setSlug($contentData['slug']);
             $content->setTitle($contentData['title']);
             $content->setText($contentData['text']);
             $content->setType($contentData['type']);
