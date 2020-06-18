@@ -22,19 +22,17 @@ class FacultyRepository extends ServiceEntityRepository
     // /**
     //  * @return Faculty[] Returns an array of Faculty objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function getAllFacultiesAsArray()
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('f.id as value')
+            ->addSelect('f.name as label')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Faculty

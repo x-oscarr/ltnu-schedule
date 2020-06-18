@@ -22,19 +22,19 @@ class SemesterRepository extends ServiceEntityRepository
     // /**
     //  * @return Semester[] Returns an array of Semester objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function getCurrentSemester()
     {
+        $date = new \DateTime('now', new \DateTimeZone('Europe/Kiev'));
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('s.startDate < :date')
+            ->andWhere('s.endDate > :date')
+            ->setParameter('date', $date)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Semester

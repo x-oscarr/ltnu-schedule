@@ -69,3 +69,19 @@ admin_user_new:
 admin_user_delete:
   path: /admin/user/{id}/delete/
   controller: App\Admin\Controller\UserController::delete
+
+#API
+faculties:
+  path: /api/faculties/
+  controller: App\Controller\Api\FacultyController::faculties
+  methods: GET
+
+groups:
+  path: /api/groups/
+  controller: App\Controller\Api\StudentGroupController::groups
+  methods: POST
+
+schedule:
+  path: /api/schedule/
+  controller: App\Controller\Api\ScheduleController::schedule
+  methods: POST
